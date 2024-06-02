@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "pucminaseixo4",
-    "slug": "pucminaseixo4",
+    "name": "dashdine",
+    "slug": "snack-b8ade7a8-b467-4d20-a7ec-26d9be249d6f",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,9 +11,6 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "supportsTablet": true
     },
