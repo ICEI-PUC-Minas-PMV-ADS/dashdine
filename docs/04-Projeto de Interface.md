@@ -14,3 +14,6 @@
 ![Group 39](https://github.com/ICEI-PUC-Minas-PMV-ADS/dashdine/assets/70419372/630347ec-3e32-49f3-8057-e7abb9bd0773)
 
 
+### Módulo MOBILE (Cliente)
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/dashdine/assets/70419372/80b909df-68ca-4958-b1ea-b3b382db5539)
