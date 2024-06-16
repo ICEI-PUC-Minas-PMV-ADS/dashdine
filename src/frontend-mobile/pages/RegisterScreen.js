@@ -3,8 +3,11 @@ import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LogoImage from '../assets/Dash.png';
+import { useNavigation } from '@react-navigation/native';
 
 const Register = () => {
+  const navigation = useNavigation();
+
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [cpf, setCpf] = useState('');
@@ -89,7 +92,7 @@ const Register = () => {
           </Text>
         </TouchableOpacity>
         <Button
-          style={[styles.button, { backgroundColor: '#f5a623' }]}
+          style={[styles.button, { backgroundColor: '#f5a623', marginBottom: 10 }]}
           mode="contained"
           onPress={handleRegister}
           labelStyle={{ color: '#000' }}>
@@ -98,27 +101,24 @@ const Register = () => {
         <View style={styles.rowCenter}>
           <Text style={styles.middleText}>OU CONTINUE COM</Text>
         </View>
-        <Button
-          style={styles.socialMediaButton}
-          uppercase
-          mode="outlined"
-          onPress={() => console.log('Pressed')}>
-          <Icon name="google" size={20} color="#ECA442" style={styles.icon} />
-          <Text style={styles.socialButtonText}>Google</Text>
-        </Button>
-        <Button
-          style={styles.socialMediaButton}
-          uppercase
-          mode="outlined"
-          onPress={() => console.log('Pressed')}>
-          <Icon
-            name="facebook"
-            size={20}
-            color="#ECA442"
-            style={styles.icon}
-          />
-          <Text style={styles.socialButtonText}>Facebook</Text>
-        </Button>
+        <View style={styles.row}>
+          <Button
+            style={[styles.socialMediaButton, { marginRight: 8 }]}
+            uppercase
+            mode="outlined"
+            onPress={() => console.log('Pressed')}>
+            <Icon name="google" size={20} color="#ECA442" style={styles.icon} />
+            <Text style={styles.socialButtonText}>Google</Text>
+          </Button>
+          <Button
+            style={styles.socialMediaButton}
+            uppercase
+            mode="outlined"
+            onPress={() => console.log('Pressed')}>
+            <Icon name="facebook" size={20} color="#ECA442" style={styles.icon} />
+            <Text style={styles.socialButtonText}>Facebook</Text>
+          </Button>
+        </View>
       </View>
     </View>
   );
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   middleText: {
     color: '#fff',
     textAlign: 'center',
-    marginVertical: 10,
+    marginBottom: 10,
   },
   socialMediaButton: {
     flexDirection: 'row',
@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     borderColor: '#fff',
     borderWidth: 1,
+    paddingHorizontal: 16,
   },
   socialButtonText: {
     color: '#fff',

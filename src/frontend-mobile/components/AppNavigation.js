@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../pages/LoginScreen';
 import RegisterScreen from '../pages/RegisterScreen';
-import OrderTrackingScreen from '../pages/OrderTrackingScreen'; // Certifique-se de importar corretamente
+import OrderTrackingScreen from '../pages/OrderTrackingScreen';
 
 const Stack = createStackNavigator();
 

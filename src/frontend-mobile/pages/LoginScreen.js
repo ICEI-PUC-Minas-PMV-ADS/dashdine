@@ -4,8 +4,11 @@ import { TextInput, Button, Text, Switch } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LogoImage from '../assets/Dash.png';
 import { login } from '../services/api';
+import { useNavigation } from '@react-navigation/native'; // Importe useNavigation
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
+  const navigation = useNavigation(); // Obtenha o objeto de navegação
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);

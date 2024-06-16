@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const OrderTrackingScreen = () => {
+const OrderTrackingScreen = ({ navigation }) => {
   // Exemplo de dados fictícios de pedidos
   const [orders, setOrders] = useState([
     { id: '1', number: 'Pedido #1234', status: 'Em andamento' },
     { id: '2', number: 'Pedido #5678', status: 'Entregue' },
     { id: '3', number: 'Pedido #9012', status: 'Pendente' },
   ]);
+
+  // Função para lidar com o pressionamento de um pedido
+  const handleOrderDetails = (order) => {
+    // Navega para a tela de detalhes do pedido passando o objeto `order`
+    navigation.navigate('OrderDetails', { order });
+  };
 
   // Função para renderizar cada item da lista de pedidos
   const renderItem = ({ item }) => (
@@ -18,12 +24,6 @@ const OrderTrackingScreen = () => {
       <Icon name="chevron-right" size={20} color="#000" />
     </TouchableOpacity>
   );
-
-  // Função para lidar com o pressionamento de um pedido
-  const handleOrderDetails = (order) => {
-    // Implemente a navegação para a tela de detalhes do pedido aqui
-    console.log('Detalhes do pedido:', order);
-  };
 
   return (
     <View style={styles.container}>
