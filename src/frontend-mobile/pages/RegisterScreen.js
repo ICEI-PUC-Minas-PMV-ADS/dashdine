@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { TextInput, Button, Snackbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import LogoImage from '../assets/Dash.png';
 import { useNavigation } from '@react-navigation/native';
 
 const Register = () => {
   const navigation = useNavigation();
 
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [cpf, setCpf] = useState('');
-  const [birthDate, setBirthDate] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const [errorSnackbar, setErrorSnackbar] = useState(false);
 
   const handleRegister = () => {
-    // Lógica de registro aqui
-    console.log('Nome:', name);
+    if (!firstName || !lastName || !password || !cpf || !email || !agreed) {
+      setErrorSnackbar(true);
+      return;
+    }
+
+    // Lógica de registro aqui (simulação)
+    const fullName = `${firstName} ${lastName}`;
+    console.log('Nome Completo:', fullName);
     console.log('Senha:', password);
     console.log('CPF:', cpf);
-    console.log('Data de Nascimento:', birthDate);
     console.log('Email:', email);
+    console.log('Telefone:', phone);
     console.log('Concordou com os termos:', agreed);
+
+    // Navega para a tela de acompanhamento de pedidos
+    navigation.navigate('OrderTracking');
   };
 
   const toggleAgreement = () => {
@@ -32,26 +42,21 @@ const Register = () => {
   const checkboxIcon = agreed ? 'check-square-o' : 'square-o';
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon
-            name="arrow-left"
-            size={24}
-            color="#ECA442"
-            style={styles.backIcon}
-          />
-        </TouchableOpacity>
-      </View>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.content}>
-        <Image source={LogoImage} style={styles.logo} />
-        <Text style={styles.title}>DashDine</Text>
-        <Text style={styles.subtitle}>PRIMEIRO ACESSO</Text>
+        <Text style={styles.title}>PRIMEIRO ACESSO</Text>
         <TextInput
           style={styles.input}
-          value={name}
-          label="Nome Completo"
-          onChangeText={(text) => setName(text)}
+          value={firstName}
+          label="Nome"
+          onChangeText={(text) => setFirstName(text)}
+          left={<TextInput.Icon name="account" />}
+        />
+        <TextInput
+          style={styles.input}
+          value={lastName}
+          label="Sobrenome"
+          onChangeText={(text) => setLastName(text)}
           left={<TextInput.Icon name="account" />}
         />
         <TextInput
@@ -63,26 +68,26 @@ const Register = () => {
           left={<TextInput.Icon name="lock" />}
           right={<TextInput.Icon name="eye" />}
         />
-        <View style={styles.row}>
-          <TextInput
-            style={[styles.input, styles.halfInput]}
-            value={cpf}
-            label="CPF"
-            onChangeText={(text) => setCpf(text)}
-          />
-          <TextInput
-            style={[styles.input, styles.halfInput]}
-            value={birthDate}
-            label="Data Nasc."
-            onChangeText={(text) => setBirthDate(text)}
-          />
-        </View>
+        <TextInput
+          style={styles.input}
+          value={cpf}
+          label="CPF"
+          onChangeText={(text) => setCpf(text)}
+          left={<TextInput.Icon name="id-card" />}
+        />
         <TextInput
           style={styles.input}
           value={email}
           label="E-mail"
           onChangeText={(text) => setEmail(text)}
           left={<TextInput.Icon name="email" />}
+        />
+        <TextInput
+          style={styles.input}
+          value={phone}
+          label="Telefone"
+          onChangeText={(text) => setPhone(text)}
+          left={<TextInput.Icon name="phone" />}
         />
         <TouchableOpacity style={styles.row} onPress={toggleAgreement}>
           <Icon name={checkboxIcon} size={20} color="#fff" />
@@ -120,42 +125,36 @@ const Register = () => {
           </Button>
         </View>
       </View>
-    </View>
+      <Snackbar
+        visible={errorSnackbar}
+        onDismiss={() => setErrorSnackbar(false)}
+        duration={3000}
+        action={{
+          label: 'Fechar',
+          onPress: () => setErrorSnackbar(false),
+        }}>
+        Preencha todos os campos obrigatórios e concorde com os termos.
+      </Snackbar>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: 'black',
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 30,
   },
   content: {
     flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 30,
-  },
-  backIcon: {
-    marginRight: 10,
-  },
-  logo: {
-    alignSelf: 'center',
-    marginBottom: 10,
+    justifyContent: 'flex-start',
   },
   title: {
-    fontSize: 30,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#fff',
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 15,
-    color: '#fff',
-    textAlign: 'left',
-    marginBottom: 10,
+    marginBottom: 15,
   },
   input: {
     marginBottom: 8,
@@ -165,10 +164,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 8,
-  },
-  halfInput: {
-    flex: 1,
-    marginRight: 4,
   },
   agreeText: {
     color: '#fff',
