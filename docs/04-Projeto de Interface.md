@@ -16,4 +16,5 @@
 
 ### Módulo MOBILE (Cliente)
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/dashdine/assets/70419372/80b909df-68ca-4958-b1ea-b3b382db5539)
+![Captura de Tela (12)](https://github.com/ICEI-PUC-Minas-PMV-ADS/dashdine/assets/114194617/a54841a9-ffc5-4924-8105-fdbd38bc67b9)
+
