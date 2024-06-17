@@ -4,13 +4,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../pages/LoginScreen';
 import RegisterScreen from '../pages/RegisterScreen';
 import OrderTrackingScreen from '../pages/OrderTrackingScreen';
+import OrderDetailsScreen from '../pages/OrderDetailsScreen'; // Importe a tela de detalhes do pedido
 
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -22,9 +23,14 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="OrderTracking" // Verifique se o nome está exatamente como 'OrderTracking'
+          name="OrderTracking"
           component={OrderTrackingScreen}
-          options={{ title: 'Acompanhar Pedidos' }} // Título do cabeçalho para a tela de acompanhamento de pedidos
+          options={{ title: 'Acompanhar Pedidos' }}
+        />
+        <Stack.Screen
+          name="OrderDetails"
+          component={OrderDetailsScreen} // Adicione a tela de detalhes do pedido
+          options={{ title: 'Detalhes do Pedido' }} // Título do cabeçalho para a tela de detalhes do pedido
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -32,3 +38,4 @@ const AppNavigator = () => {
 };
 
 export default AppNavigator;
+

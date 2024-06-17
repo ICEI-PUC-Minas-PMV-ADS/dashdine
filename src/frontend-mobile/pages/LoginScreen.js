@@ -4,10 +4,10 @@ import { TextInput, Button, Text, Switch } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LogoImage from '../assets/Dash.png';
 import { login } from '../services/api';
-import { useNavigation } from '@react-navigation/native'; // Importe useNavigation
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
-  const navigation = useNavigation(); // Obtenha o objeto de navegação
+  const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,17 +15,17 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
+      console.log('Tentando fazer login com:', { email, password });
       const response = await login(email, password);
-      // Aqui você pode verificar a resposta da API e realizar as ações adequadas
-      if (response.accessToken) {
-        // Se houver um token de acesso na resposta, navegue para a tela de acompanhamento de pedidos
+      console.log('Resposta da API de login:', response);
+
+      if (response && response.accessToken) {
+        console.log('Login bem-sucedido, redirecionando para OrderTracking');
         navigation.navigate('OrderTracking');
       } else {
-        // Caso contrário, exiba uma mensagem de erro
         Alert.alert('Erro', 'Credenciais inválidas. Tente novamente.');
       }
     } catch (error) {
-      // Se ocorrer um erro ao chamar a função login, exiba uma mensagem de erro genérica
       console.error('Erro ao fazer login:', error);
       Alert.alert('Erro', 'Ocorreu um erro ao tentar fazer login. Por favor, tente novamente.');
     }
@@ -186,4 +186,3 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
-
