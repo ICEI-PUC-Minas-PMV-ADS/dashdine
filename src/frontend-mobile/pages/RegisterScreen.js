@@ -7,32 +7,51 @@ import { useNavigation } from '@react-navigation/native';
 const Register = () => {
   const navigation = useNavigation();
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [password, setPassword] = useState('');
+  const [nome, setNome] = useState('');
+  const [sobrenome, setSobrenome] = useState('');
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [senha, setSenha] = useState('');
   const [agreed, setAgreed] = useState(false);
   const [errorSnackbar, setErrorSnackbar] = useState(false);
+  const [successSnackbar, setSuccessSnackbar] = useState(false);
 
-  const handleRegister = () => {
-    if (!firstName || !lastName || !password || !cpf || !email || !agreed) {
+  const handleRegister = async () => {
+    if (!nome || !sobrenome || !cpf || !email || !telefone || !senha || !agreed) {
       setErrorSnackbar(true);
       return;
     }
 
-    // Lógica de registro aqui (simulação)
-    const fullName = `${firstName} ${lastName}`;
-    console.log('Nome Completo:', fullName);
-    console.log('Senha:', password);
-    console.log('CPF:', cpf);
-    console.log('Email:', email);
-    console.log('Telefone:', phone);
-    console.log('Concordou com os termos:', agreed);
+    try {
+      const response = await fetch('https://dashdine-1hvj.onrender.com/registro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nome: nome,
+          sobrenome: sobrenome,
+          cpf: cpf,
+          email: email,
+          telefone: telefone,
+          senha: senha,
+        }),
+      });
 
-    // Navega para a tela de acompanhamento de pedidos
-    navigation.navigate('OrderTracking');
+      const data = await response.json();
+
+      if (response.ok) {
+        setSuccessSnackbar(true);
+        navigation.navigate('Login'); // Redireciona para a tela de login após o registro
+      } else {
+        setErrorSnackbar(true); // Exibe mensagem de erro se a requisição falhar
+        console.error('Erro ao cadastrar:', data.error); // Exibe detalhes do erro no console
+      }
+    } catch (error) {
+      console.error('Erro ao cadastrar:', error);
+      setErrorSnackbar(true); // Exibe mensagem de erro se ocorrer um erro na requisição
+    }
   };
 
   const toggleAgreement = () => {
@@ -47,26 +66,17 @@ const Register = () => {
         <Text style={styles.title}>PRIMEIRO ACESSO</Text>
         <TextInput
           style={styles.input}
-          value={firstName}
+          value={nome}
           label="Nome"
-          onChangeText={(text) => setFirstName(text)}
+          onChangeText={(text) => setNome(text)}
           left={<TextInput.Icon name="account" />}
         />
         <TextInput
           style={styles.input}
-          value={lastName}
+          value={sobrenome}
           label="Sobrenome"
-          onChangeText={(text) => setLastName(text)}
+          onChangeText={(text) => setSobrenome(text)}
           left={<TextInput.Icon name="account" />}
-        />
-        <TextInput
-          style={styles.input}
-          value={password}
-          label="Senha"
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry
-          left={<TextInput.Icon name="lock" />}
-          right={<TextInput.Icon name="eye" />}
         />
         <TextInput
           style={styles.input}
@@ -84,10 +94,19 @@ const Register = () => {
         />
         <TextInput
           style={styles.input}
-          value={phone}
+          value={telefone}
           label="Telefone"
-          onChangeText={(text) => setPhone(text)}
+          onChangeText={(text) => setTelefone(text)}
           left={<TextInput.Icon name="phone" />}
+        />
+        <TextInput
+          style={styles.input}
+          value={senha}
+          label="Senha"
+          onChangeText={(text) => setSenha(text)}
+          secureTextEntry
+          left={<TextInput.Icon name="lock" />}
+          right={<TextInput.Icon name="eye" />}
         />
         <TouchableOpacity style={styles.row} onPress={toggleAgreement}>
           <Icon name={checkboxIcon} size={20} color="#fff" />
@@ -133,7 +152,17 @@ const Register = () => {
           label: 'Fechar',
           onPress: () => setErrorSnackbar(false),
         }}>
-        Preencha todos os campos obrigatórios e concorde com os termos.
+        Ocorreu um erro ao cadastrar. Verifique seus dados e tente novamente.
+      </Snackbar>
+      <Snackbar
+        visible={successSnackbar}
+        onDismiss={() => setSuccessSnackbar(false)}
+        duration={3000}
+        action={{
+          label: 'Fechar',
+          onPress: () => setSuccessSnackbar(false),
+        }}>
+        Cadastro realizado com sucesso! Faça login para continuar.
       </Snackbar>
     </ScrollView>
   );
