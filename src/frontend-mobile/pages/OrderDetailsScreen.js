@@ -35,7 +35,7 @@ const OrderDetailsScreen = ({ route }) => {
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Endereço de Entrega</Text>
-        <Text> Rua</Text>
+        <Text> </Text>
         <Text style={styles.address}>{order.address}</Text>
       </View>
     </View>
