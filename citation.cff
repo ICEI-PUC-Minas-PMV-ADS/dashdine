@@ -1,0 +1,31 @@
+message: Please cite this software using these metadata.
+title: Dashdine
+authors:
+  - family-names: Ruan Gomes
+    given-names: Diego
+  - family-names: Cristiny Gonçalves Andrade
+    given-names: Gabrielly 
+  - family-names: Almeida da Cruz Silva
+    given-names: Guilherme 
+  - family-names: Maldonado da Silva
+    given-names:  Jardel
+  - family-names: Farias Rodrigues
+    given-names: Lizane
+  - family-names: Leme Novais Ferreira
+    given-names: Antony
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: Augusto Lara Soares
+    given-names: Felipe
+keywords:
+  - Gestão de Restaurante
+  - Fastfood
+  - Administração de Restaurante
+  - Eixo 4
+  - NextJS
+  - NodeJS
+  - React Native
+  - MongoDB
+repository-code: https://github.com/ICEI-PUC-Minas-PMV-ADS/dashdine
+version: 1.0.0
+date-released: 2024-06-21
